@@ -91,10 +91,9 @@
   cursor: not-allowed;
 }
 
-/* Weather icons */
+/* Weather icon using emoji instead of lucide-react */
 .icon {
-  width: 80px;
-  height: 80px;
+  font-size: 60px;
   margin-bottom: 10px;
   transition: transform 0.3s;
 }

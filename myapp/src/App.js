@@ -1,17 +1,4 @@
 import React, { useState } from "react";
-import {
-  Cloud,
-  CloudRain,
-  Sun,
-  Wind,
-  Droplets,
-  Eye,
-  Gauge,
-  Search,
-  CloudSnow,
-  CloudDrizzle,
-  Loader
-} from "lucide-react";
 
 function App() {
   const [city, setCity] = useState("");
@@ -115,14 +102,14 @@ function App() {
     }, 1000);
   };
 
-  const getWeatherIcon = (main) => {
+  const getWeatherEmoji = (main) => {
     const weatherLower = main.toLowerCase();
-    if (weatherLower === "clear") return <Sun className="icon" />;
-    if (weatherLower === "clouds") return <Cloud className="icon" />;
-    if (weatherLower === "rain") return <CloudRain className="icon" />;
-    if (weatherLower === "drizzle") return <CloudDrizzle className="icon" />;
-    if (weatherLower === "snow") return <CloudSnow className="icon" />;
-    return <Cloud className="icon" />;
+    if (weatherLower === "clear") return "☀️";
+    if (weatherLower === "clouds") return "☁️";
+    if (weatherLower === "rain") return "🌧️";
+    if (weatherLower === "drizzle") return "🌦️";
+    if (weatherLower === "snow") return "❄️";
+    return "☁️";
   };
 
   return (
@@ -137,7 +124,7 @@ function App() {
           className="input-city"
         />
         <button className="search-button" onClick={fetchWeather}>
-          {loading ? <Loader className="loader" /> : <Search />}
+          {loading ? "⏳" : "🔍"}
         </button>
 
         <div>
@@ -155,7 +142,6 @@ function App() {
         </div>
 
         {error && <p className="error">{error}</p>}
-
         {loading && <p className="loading">Loading weather data...</p>}
 
         {weather && !loading && (
@@ -166,29 +152,21 @@ function App() {
             <p>{new Date().toLocaleDateString()}</p>
 
             <div>
-              {getWeatherIcon(weather.weather[0].main)}
+              <div className="icon">{getWeatherEmoji(weather.weather[0].main)}</div>
               <h1>{Math.round(weather.main.temp)}°C</h1>
               <p>{weather.weather[0].description}</p>
               <p>Feels like {Math.round(weather.main.feels_like)}°C</p>
             </div>
 
             <div className="weather-details">
-              <div>
-                <Droplets /> Humidity: {weather.main.humidity}%
-              </div>
-              <div>
-                <Wind /> Wind: {weather.wind.speed} m/s
-              </div>
-              <div>
-                <Gauge /> Pressure: {weather.main.pressure} hPa
-              </div>
-              <div>
-                <Eye /> Visibility: {(weather.visibility / 1000).toFixed(1)} km
-              </div>
+              <div>💧 Humidity: {weather.main.humidity}%</div>
+              <div>💨 Wind: {weather.wind.speed} m/s</div>
+              <div>🌡️ Pressure: {weather.main.pressure} hPa</div>
+              <div>👀 Visibility: {(weather.visibility / 1000).toFixed(1)} km</div>
             </div>
 
             <button className="search-button" onClick={() => setWeather(null)}>
-              Search Another City
+              🔄 Search Another City
             </button>
           </div>
         )}
@@ -198,4 +176,3 @@ function App() {
 }
 
 export default App;
-
